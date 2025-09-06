@@ -24,13 +24,16 @@
             position: relative;
             z-index: 2;
             display: flex;
-            align-items: center; /* Vertically center content */
-            justify-content: flex-start; /* Align content to the left */
-            padding: 0 30px; /* Add padding for spacing */
+            align-items: center;
+            justify-content: center;
         }
 
         .back-arrow {
-            font-size: 24px; /* Adjust font size */
+            position: absolute;
+            left: 30px;
+            top: 45%;
+            transform: translateY(-50%);
+            font-size: 35px;
             color: white;
             cursor: pointer;
             text-decoration: none;
@@ -56,12 +59,6 @@
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
-            .navbar {
-                padding: 0 10px; /* Adjust padding for smaller screens */
-            }
-            .back-arrow {
-                font-size: 20px; /* Adjust font size for smaller screens */
-            }
             .webcam-feed {
                 width: 90%; /* Adjust width for smaller screens */
             }
