@@ -3,40 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bingo Landing Page</title>
+    <title>Bingo Camera</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body {
+        /* General Reset */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             height: 100vh;
             display: flex;
             flex-direction: column;
             font-family: 'Poppins', sans-serif;
             background-color: #52005da5; /* Semi-transparent dark green background */
             overflow: hidden;
-            position: relative;
         }
 
         .navbar {
             background-color: #9000cb; /* Purple nav bar */
             height: 60px;
-            position: relative;
-            z-index: 2;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start; /* Align content to the left */
+            padding: 0 15px; /* Add padding for spacing */
         }
 
         .back-arrow {
-            position: absolute;
-            left: 30px;
-            top: 45%;
-            transform: translateY(-50%);
-            font-size: 35px;
+            font-size: 24px; /* Adjust font size */
             color: white;
             cursor: pointer;
             text-decoration: none;
+            display: flex;
+            align-items: center; /* Vertically center the arrow */
         }
 
         .content {
@@ -44,12 +45,12 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            padding-top: 10px; /* Padding below the navbar */
+            padding: 20px; /* Add padding for spacing */
         }
 
         .webcam-feed {
-            width: 80%; /* Adjustable width */
-            max-width: 400px; /* Maximum width */
+            width: 100%; /* Full width */
+            max-width: 400px; /* Maximum width for larger screens */
             aspect-ratio: 1 / 1; /* Maintain 1:1 aspect ratio */
             border: 5px solid #9000cb; /* Optional border */
             border-radius: 10px; /* Rounded corners */
@@ -58,9 +59,47 @@
         }
 
         /* Responsive adjustments */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
+            .navbar {
+                height: 50px; /* Adjust navbar height for tablets */
+                padding: 0 10px;
+            }
+
+            .back-arrow {
+                font-size: 20px; /* Adjust arrow size for tablets */
+            }
+
             .webcam-feed {
-                width: 90%; /* Adjust width for smaller screens */
+                max-width: 350px; /* Adjust max width for tablets */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                height: 50px; /* Adjust navbar height for mobile */
+                padding: 0 10px;
+            }
+
+            .back-arrow {
+                font-size: 18px; /* Adjust arrow size for mobile */
+            }
+
+            .webcam-feed {
+                max-width: 300px; /* Adjust max width for mobile */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                height: 45px; /* Adjust navbar height for smaller mobile screens */
+            }
+
+            .back-arrow {
+                font-size: 16px; /* Adjust arrow size for smaller mobile screens */
+            }
+
+            .webcam-feed {
+                max-width: 250px; /* Adjust max width for smaller mobile screens */
             }
         }
     </style>
