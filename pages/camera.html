@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Landing Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Poppins', sans-serif;
+            background-color: #52005da5; /* Semi-transparent dark green background */
+            overflow: hidden;
+            position: relative;
+        }
+
+        .navbar {
+            background-color: #9000cb; /* Purple nav bar */
+            height: 60px;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-arrow {
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 35px;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 10px; /* Padding below the navbar */
+        }
+
+        .webcam-feed {
+            width: 80%; /* Adjustable width */
+            max-width: 400px; /* Maximum width */
+            aspect-ratio: 1 / 1; /* Maintain 1:1 aspect ratio */
+            border: 5px solid #9000cb; /* Optional border */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            transform: scaleX(-1); /* Flip the video horizontally */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .webcam-feed {
+                width: 90%; /* Adjust width for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html" class="back-arrow">&larr;</a> <!-- Back arrow -->
+    </div>
+    <div class="content">
+        <video id="webcam" class="webcam-feed" autoplay playsinline></video>
+    </div>
+
+    <script>
+        // JavaScript to access the webcam using WebRTC
+        document.addEventListener('DOMContentLoaded', async function () {
+            const videoElement = document.getElementById('webcam');
+
+            try {
+                // Request access to the webcam
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        width: { ideal: 720 },
+                        height: { ideal: 720 },
+                        aspectRatio: 1
+                    },
+                    audio: false
+                });
+
+                // Set the webcam stream to the video element
+                videoElement.srcObject = stream;
+            } catch (error) {
+                console.error('Error accessing the webcam:', error);
+                alert('Unable to access the webcam. Please check your browser settings.');
+            }
+        });
+    </script>
+</body>
+</html>

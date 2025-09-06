@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Landing Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Poppins', sans-serif;
+            background-color: #52005da5; /* Semi-transparent dark green background */
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../assets/images/landingpagebg.jpg'); /* Corrected path */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5; /* 50% opacity for background image */
+            z-index: -1;
+        }
+
+        .navbar {
+            background-color: #9000cb; /* Purple nav bar */
+            height: 60px;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centered content, can add logo or menu here */
+        }
+
+        .navbar h1 {
+            color: white;
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .content {
+            flex: 1;
+            position: relative;
+            /* Minimal content, keeping it clean as per request */
+        }
+
+        .cta-button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #9000cb; /* Purple button */
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600; /* Semi-bold */
+            font-size: 18px;
+            padding: 12px 24px; /* Reasonable padding as requested */
+            border: none;
+            border-radius: 25px; /* Rounded corners for 'round' */
+            cursor: pointer;
+            z-index: 1;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #7a00a7; /* Slightly darker on hover for interactivity */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .navbar h1 {
+                font-size: 20px;
+            }
+            .cta-button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Welcome to PiTique</h1> <!-- Placeholder nav content, can be customized -->
+    </div>
+    <div class="content">
+        <!-- Main content area; left empty for simplicity as not specified -->
+    </div>
+    <button class="cta-button" onclick="location.href='camera.html';">START TAKING PHOTOS!</button> <!-- Redirects to camera.html -->
+
+    <script>
+        // Minimal JS; can expand for interactive features
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Landing page loaded successfully.');
+            // Example: Could add scroll effects or more interactivity here
+        });
+    </script>
+</body>
+</html>
