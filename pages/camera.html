@@ -32,7 +32,7 @@
         }
 
         .back-arrow {
-            font-size: 24px; /* Adjust font size */
+            font-size: 32px; /* Larger font size for better visibility */
             color: white;
             cursor: pointer;
             text-decoration: none;
@@ -44,13 +44,14 @@
             flex: 1;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding: 20px; /* Add padding for spacing */
+            align-items: center; /* Center content both vertically and horizontally */
+            padding: 10px; /* Add padding for spacing */
         }
 
         .webcam-feed {
             width: 100%; /* Full width */
-            max-width: 400px; /* Maximum width for larger screens */
+            max-width: 90vw; /* Ensure it fits within the viewport width */
+            max-height: 80vh; /* Ensure it fits within the viewport height */
             aspect-ratio: 1 / 1; /* Maintain 1:1 aspect ratio */
             border: 5px solid #9000cb; /* Optional border */
             border-radius: 10px; /* Rounded corners */
@@ -61,16 +62,12 @@
         /* Responsive adjustments */
         @media (max-width: 1024px) {
             .navbar {
-                height: 50px; /* Adjust navbar height for tablets */
+                height: 55px; /* Adjust navbar height for tablets */
                 padding: 0 10px;
             }
 
             .back-arrow {
-                font-size: 20px; /* Adjust arrow size for tablets */
-            }
-
-            .webcam-feed {
-                max-width: 350px; /* Adjust max width for tablets */
+                font-size: 28px; /* Adjust arrow size for tablets */
             }
         }
 
@@ -81,25 +78,28 @@
             }
 
             .back-arrow {
-                font-size: 18px; /* Adjust arrow size for mobile */
-            }
-
-            .webcam-feed {
-                max-width: 300px; /* Adjust max width for mobile */
+                font-size: 30px; /* Larger arrow size for mobile */
             }
         }
 
         @media (max-width: 480px) {
             .navbar {
-                height: 45px; /* Adjust navbar height for smaller mobile screens */
+                height: 50px; /* Adjust navbar height for smaller mobile screens */
             }
 
             .back-arrow {
-                font-size: 16px; /* Adjust arrow size for smaller mobile screens */
+                font-size: 32px; /* Even larger arrow size for smaller mobile screens */
+            }
+        }
+
+        @media (orientation: landscape) {
+            .content {
+                padding: 5px; /* Reduce padding for landscape orientation */
             }
 
             .webcam-feed {
-                max-width: 250px; /* Adjust max width for smaller mobile screens */
+                max-width: 80vw; /* Adjust width for landscape orientation */
+                max-height: 70vh; /* Adjust height for landscape orientation */
             }
         }
     </style>
