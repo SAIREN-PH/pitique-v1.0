@@ -51,15 +51,14 @@
 
         .content {
             flex: 1;
-            position: relative;
-            /* Minimal content, keeping it clean as per request */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px; /* Add padding for spacing */
         }
 
         .cta-button {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
             background-color: #9000cb; /* Purple button */
             color: white;
             font-family: 'Poppins', sans-serif;
@@ -94,9 +93,8 @@
         <h1>Welcome to PiTique</h1> <!-- Placeholder nav content, can be customized -->
     </div>
     <div class="content">
-        <!-- Main content area; left empty for simplicity as not specified -->
+        <button class="cta-button" onclick="location.href='camera.html';">START TAKING PHOTOS!</button>
     </div>
-    <button class="cta-button" onclick="location.href='camera.html';">START TAKING PHOTOS!</button> <!-- Redirects to camera.html -->
 
     <script>
         // Minimal JS; can expand for interactive features
