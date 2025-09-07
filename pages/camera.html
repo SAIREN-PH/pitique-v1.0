@@ -19,8 +19,9 @@
             flex-direction: column;
             font-family: 'Poppins', sans-serif;
             background-color: #52005da5; /* Semi-transparent dark green background */
-            overflow: hidden;
             padding-bottom: 1000px;
+            padding-left: 10px;
+            padding-right: 10px;
         }
 
         .navbar {
@@ -30,7 +31,11 @@
             align-items: center;
             justify-content: center; /* Center content */
             padding: 0 15px; /* Add padding for spacing */
-            position: relative;
+            position: fixed; /* Fix the navbar at the top */
+            top: 0;
+            left: 0;
+            width: 100%; /* Ensure it spans the full width of the viewport */
+            z-index: 10; /* Ensure it stays on top */
         }
 
         .back-arrow {
@@ -55,7 +60,7 @@
             justify-content: center;
             align-items: center; /* Center content vertically */
             padding: 10px; /* Add padding for spacing */
-            padding-bottom: 0px; /* Extra padding at the bottom to account for URL/Status bar */
+            margin-top: 60px; /* Add margin to account for the fixed navbar */
         }
 
         .camera-photo-wrapper {
@@ -71,30 +76,37 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%; /* Make the container take full width */
         }
 
         .webcam-feed {
-            width: auto;
-            max-width: 90vw; /* Ensure it fits within the viewport width */
+            width: 100%; /* Adjust to the container's width */
+            height: auto; /* Maintain aspect ratio */
             max-height: 80vh; /* Ensure it fits within the viewport height */
             aspect-ratio: 1 / 1; /* Maintain 1:1 aspect ratio */
             border: 5px solid #9000cb; /* Optional border */
             border-radius: 10px; /* Rounded corners */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            object-fit: cover; /* Ensure the video fills the container */
             transform: scaleX(-1); /* Flip the video horizontally */
         }
 
         .photo-container {
+            width: 30%;
+            height: auto;
+            max-height: 10qvh;
+            aspect-ratio: 1 / 1; /* Maintain 1:1 aspect ratio */
             display: flex;
             flex-direction: column;
             justify-content: center; /* Center photo slots vertically */
             align-items: center;
+            object-fit: cover;
             gap: 10px;
         }
 
         .photo-slot {
-            width: 100px;
-            height: 100px;
+            width: 100%;
+            height: 100%;
             border: 2px solid #9000cb;
             border-radius: 10px;
             background-color: #fff;
@@ -102,6 +114,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            object-fit: cover;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
@@ -133,7 +146,6 @@
         .shutter-button:hover {
             background-color: #7a00a7;
         }
-
     </style>
 </head>
 <body>
