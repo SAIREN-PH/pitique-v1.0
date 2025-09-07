@@ -27,30 +27,45 @@
             height: 60px;
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* Align content to the left */
+            justify-content: center; /* Center content */
             padding: 0 15px; /* Add padding for spacing */
+            position: relative;
         }
 
         .back-arrow {
+            position: absolute;
+            left: 15px;
             font-size: 32px; /* Larger font size for better visibility */
             color: white;
             cursor: pointer;
             text-decoration: none;
-            display: flex;
-            align-items: center; /* Vertically center the arrow */
+        }
+
+        .countdown {
+            font-size: 24px;
+            color: white;
+            font-weight: 600;
+            display: none; /* Initially hidden */
         }
 
         .content {
             flex: 1;
             display: flex;
             justify-content: center;
-            align-items: center; /* Center content both vertically and horizontally */
+            align-items: center; /* Center content vertically */
             padding: 10px; /* Add padding for spacing */
             padding-bottom: 20px; /* Extra padding at the bottom to account for URL/Status bar */
+            gap: 20px; /* Space between camera feed and photo containers */
+        }
+
+        .webcam-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .webcam-feed {
-            width: auto; /* Full width */
+            width: auto;
             max-width: 90vw; /* Ensure it fits within the viewport width */
             max-height: 80vh; /* Ensure it fits within the viewport height */
             aspect-ratio: 1 / 1; /* Maintain 1:1 aspect ratio */
@@ -60,48 +75,74 @@
             transform: scaleX(-1); /* Flip the video horizontally */
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 1024px) {
-            .navbar {
-                height: 55px; /* Adjust navbar height for tablets */
-                padding: 0 10px;
-            }
-
-            .back-arrow {
-                font-size: 28px; /* Adjust arrow size for tablets */
-            }
+        .photo-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            height: 80vh; /* Match the height of the camera feed */
+            gap: 10px;
         }
 
+        .photo-slot {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #9000cb;
+            border-radius: 10px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .photo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1);
+        }
+
+        .shutter-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .shutter-button {
+            background-color: #9000cb;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .shutter-button:hover {
+            background-color: #7a00a7;
+        }
+
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .navbar {
-                height: 50px; /* Adjust navbar height for mobile */
-                padding: 0 10px;
+                height: 50px;
             }
 
             .back-arrow {
-                font-size: 30px; /* Larger arrow size for mobile */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .navbar {
-                height: 50px; /* Adjust navbar height for smaller mobile screens */
+                font-size: 28px;
             }
 
-            .back-arrow {
-                font-size: 32px; /* Even larger arrow size for smaller mobile screens */
-            }
-        }
-
-        @media (orientation: landscape) {
-            .content {
-                padding: 5px; /* Reduce padding for landscape orientation */
-                padding-bottom: 1000px; /* Extra padding at the bottom for landscape mode */
+            .countdown {
+                font-size: 20px;
             }
 
-            .webcam-feed {
-                max-width: 80vw; /* Adjust width for landscape orientation */
-                max-height: 70vh; /* Adjust height for landscape orientation */
+            .photo-slot {
+                width: 80px;
+                height: 80px;
             }
         }
     </style>
@@ -109,15 +150,34 @@
 <body>
     <div class="navbar">
         <a href="index.html" class="back-arrow">&larr;</a> <!-- Back arrow -->
+        <div class="countdown" id="countdown">10</div> <!-- Countdown timer -->
     </div>
     <div class="content">
-        <video id="webcam" class="webcam-feed" autoplay playsinline></video>
+        <div class="webcam-container">
+            <video id="webcam" class="webcam-feed" autoplay playsinline></video>
+        </div>
+        <div class="photo-container">
+            <div class="photo-slot" id="photo-slot-1"></div>
+            <div class="photo-slot" id="photo-slot-2"></div>
+            <div class="photo-slot" id="photo-slot-3"></div>
+        </div>
+    </div>
+    <div class="shutter-container">
+        <button class="shutter-button" id="shutter-button">Take Photo</button>
     </div>
 
     <script>
-        // JavaScript to access the webcam using WebRTC
         document.addEventListener('DOMContentLoaded', async function () {
             const videoElement = document.getElementById('webcam');
+            const shutterButton = document.getElementById('shutter-button');
+            const countdownElement = document.getElementById('countdown');
+            const photoSlots = [
+                document.getElementById('photo-slot-1'),
+                document.getElementById('photo-slot-2'),
+                document.getElementById('photo-slot-3')
+            ];
+            let currentPhotoSlot = 0;
+            let isTakingPhoto = false; // Flag to prevent multiple photos at once
 
             try {
                 // Request access to the webcam
@@ -136,6 +196,47 @@
                 console.error('Error accessing the webcam:', error);
                 alert('Unable to access the webcam. Please check your browser settings.');
             }
+
+            // Handle shutter button click
+            shutterButton.addEventListener('click', () => {
+                if (isTakingPhoto) return; // Prevent multiple photos at once
+                if (currentPhotoSlot >= photoSlots.length) {
+                    alert('Photo slots are full!');
+                    return;
+                }
+
+                isTakingPhoto = true; // Set flag to true
+                let countdown = 10;
+                countdownElement.textContent = countdown;
+                countdownElement.style.display = 'block';
+                shutterButton.disabled = true; // Disable the button during countdown
+
+                const countdownInterval = setInterval(() => {
+                    countdown -= 1;
+                    countdownElement.textContent = countdown;
+
+                    if (countdown === 0) {
+                        clearInterval(countdownInterval);
+                        countdownElement.style.display = 'none';
+
+                        // Capture the photo
+                        const canvas = document.createElement('canvas');
+                        canvas.width = videoElement.videoWidth;
+                        canvas.height = videoElement.videoHeight;
+                        const context = canvas.getContext('2d');
+                        context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+                        // Store the photo in the next available slot
+                        const img = document.createElement('img');
+                        img.src = canvas.toDataURL('image/png');
+                        photoSlots[currentPhotoSlot].appendChild(img);
+                        currentPhotoSlot += 1;
+
+                        isTakingPhoto = false; // Reset flag
+                        shutterButton.disabled = false; // Re-enable the button
+                    }
+                }, 1000);
+            });
         });
     </script>
 </body>
