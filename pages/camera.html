@@ -20,6 +20,7 @@
             font-family: 'Poppins', sans-serif;
             background-color: #52005da5; /* Semi-transparent dark green background */
             overflow: hidden;
+            padding-bottom: 1000px;
         }
 
         .navbar {
@@ -54,8 +55,16 @@
             justify-content: center;
             align-items: center; /* Center content vertically */
             padding: 10px; /* Add padding for spacing */
-            padding-bottom: 20px; /* Extra padding at the bottom to account for URL/Status bar */
+            padding-bottom: 0px; /* Extra padding at the bottom to account for URL/Status bar */
+        }
+
+        .camera-photo-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: center; /* Align items vertically */
+            justify-content: center; /* Center items horizontally */
             gap: 20px; /* Space between camera feed and photo containers */
+            max-height: 80vh; /* Ensure it doesn't exceed the height of the camera feed */
         }
 
         .webcam-container {
@@ -78,9 +87,8 @@
         .photo-container {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center; /* Center photo slots vertically */
             align-items: center;
-            height: 80vh; /* Match the height of the camera feed */
             gap: 10px;
         }
 
@@ -126,25 +134,6 @@
             background-color: #7a00a7;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .navbar {
-                height: 50px;
-            }
-
-            .back-arrow {
-                font-size: 28px;
-            }
-
-            .countdown {
-                font-size: 20px;
-            }
-
-            .photo-slot {
-                width: 80px;
-                height: 80px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -153,13 +142,15 @@
         <div class="countdown" id="countdown">10</div> <!-- Countdown timer -->
     </div>
     <div class="content">
-        <div class="webcam-container">
-            <video id="webcam" class="webcam-feed" autoplay playsinline></video>
-        </div>
-        <div class="photo-container">
-            <div class="photo-slot" id="photo-slot-1"></div>
-            <div class="photo-slot" id="photo-slot-2"></div>
-            <div class="photo-slot" id="photo-slot-3"></div>
+        <div class="camera-photo-wrapper">
+            <div class="webcam-container">
+                <video id="webcam" class="webcam-feed" autoplay playsinline></video>
+            </div>
+            <div class="photo-container">
+                <div class="photo-slot" id="photo-slot-1"></div>
+                <div class="photo-slot" id="photo-slot-2"></div>
+                <div class="photo-slot" id="photo-slot-3"></div>
+            </div>
         </div>
     </div>
     <div class="shutter-container">
